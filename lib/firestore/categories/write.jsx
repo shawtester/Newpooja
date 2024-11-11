@@ -1,4 +1,4 @@
-import { db, storage } from "@/lib/firebase";
+import { db } from "@/lib/firebase";
 import {
   collection,
   deleteDoc,
@@ -7,32 +7,26 @@ import {
   Timestamp,
   updateDoc,
 } from "firebase/firestore";
-import { getDownloadURL, ref, uploadBytes } from "firebase/storage";
 
-export const createNewCategory = async ({ data, image }) => {
-  if (!image) {
-    throw new Error("Image is Required");
-  }
+export const createNewCategory = async ({ data }) => {
   if (!data?.name) {
     throw new Error("Name is required");
   }
   if (!data?.slug) {
     throw new Error("Slug is required");
   }
-  const newId = doc(collection(db, `ids`)).id;
-  const imageRef = ref(storage, `categories/${newId}`);
-  await uploadBytes(imageRef, image);
-  const imageURL = await getDownloadURL(imageRef);
 
+  const newId = doc(collection(db, `ids`)).id;
+
+  // Set the document without the image upload part
   await setDoc(doc(db, `categories/${newId}`), {
     ...data,
     id: newId,
-    imageURL: imageURL,
     timestampCreate: Timestamp.now(),
   });
 };
 
-export const updateCategory = async ({ data, image }) => {
+export const updateCategory = async ({ data }) => {
   if (!data?.name) {
     throw new Error("Name is required");
   }
@@ -44,17 +38,9 @@ export const updateCategory = async ({ data, image }) => {
   }
   const id = data?.id;
 
-  let imageURL = data?.imageURL;
-
-  if (image) {
-    const imageRef = ref(storage, `categories/${id}`);
-    await uploadBytes(imageRef, image);
-    imageURL = await getDownloadURL(imageRef);
-  }
-
+  // Update the document without the image upload part
   await updateDoc(doc(db, `categories/${id}`), {
     ...data,
-    imageURL: imageURL,
     timestampUpdate: Timestamp.now(),
   });
 };

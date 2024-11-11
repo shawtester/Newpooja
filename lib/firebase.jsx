@@ -2,18 +2,18 @@
 
 import { initializeApp } from "firebase/app";
 import { getAuth, GoogleAuthProvider } from "firebase/auth"; // Importing GoogleAuthProvider here
-import { getFirestore } from "firebase/firestore";
+import { getFirestore,Timestamp } from "firebase/firestore";
 import { getStorage } from "firebase/storage";
 
 // Initialize Firebase
 const firebaseConfig = {
-  apiKey: "AIzaSyAQJqj77nDd6QFuF56wf1V2xT0tgSjg3UU",
-  authDomain: "temp-5376e.firebaseapp.com",
-  projectId: "temp-5376e",
-  storageBucket: "temp-5376e.firebasestorage.app",
-  messagingSenderId: "501654905489",
-  appId: "1:501654905489:web:6628d9512700cde5885530",
-  measurementId: "G-BVETTP3DVV"
+  apiKey: "AIzaSyAJzyMph2iAGK-hSizINO2SWJHczFBNJ6A",
+  authDomain: "jamua-2ef80.firebaseapp.com",
+  projectId: "jamua-2ef80",
+  storageBucket: "jamua-2ef80.firebasestorage.app",
+  messagingSenderId: "773357370350",
+  appId: "1:773357370350:web:a9401ae8e6bca789ae2cff",
+  measurementId: "G-95EJKVS50Y"
 };
 
 // Initialize Firebase App

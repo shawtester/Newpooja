@@ -1,7 +1,7 @@
 import { useEffect } from "react";
 import useSWR from "swr";
 import { db } from "@/lib/firebase";
-import { collection, onSnapshot } from "firebase/firestore";
+import { collection, onSnapshot,getDocs } from "firebase/firestore";
 
 // Fetcher function to fetch categories from Firestore
 const fetchCategories = async () => {

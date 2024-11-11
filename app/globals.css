@@ -2,3 +2,138 @@
 @tailwind components;
 @tailwind utilities;
 
+
+
+/* Custom Carousel Styles */
+.carousel-container {
+    position: relative;
+    max-width: 100%;
+    overflow: hidden;
+    border-radius: 25px;  /* More rounded corners */
+    padding: 16px; /* Padding around the slider */
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1); /* Optional: Add a subtle shadow for better look */
+  }
+  
+  .carousel-wrapper {
+    position: relative;
+    width: 100%;
+  }
+  
+  .carousel-wrapper img {
+    width: 100%;
+    height: 450px;
+    object-fit: cover;
+    border-radius: 20px; /* Rounded corners for images */
+    transition: transform 0.5s ease-in-out; /* Smooth transition on image change */
+  }
+  
+  /* Left and Right Navigation Buttons */
+  .carousel-button {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    background: rgba(0, 0, 0, 0.5);
+    color: #fff;
+    border: none;
+    font-size: 24px;
+    cursor: pointer;
+    padding: 10px;
+    border-radius: 50%;
+    z-index: 1;
+  }
+  
+  /* Left Arrow Button */
+  .carousel-button.left {
+    left: 10px;
+  }
+  
+  /* Right Arrow Button */
+  .carousel-button.right {
+    right: 10px;
+  }
+  
+  /* Dots Navigation Styles */
+  .carousel-dots {
+    display: flex;
+    justify-content: center;
+    margin-top: 10px;
+  }
+  
+  .carousel-dots .dot {
+    width: 10px;
+    height: 10px;
+    margin: 0 5px;
+    background-color: gray;
+    border-radius: 50%;
+    cursor: pointer;
+  }
+  
+  .carousel-dots .dot.active {
+    background-color: black;
+  }
+  
+  /* Responsive Design */
+  @media (max-width: 768px) {
+    .carousel-wrapper img {
+      object-position: center; /* Ensures the image remains centered */
+      object-fit: cover; /* Ensure images cover the container without being stretched */
+      height: 300px; /* Set a consistent height for the image on tablets */
+    }
+  
+    /* Hide the arrows on smaller screens */
+    .carousel-button {
+      display: none;
+    }
+  }
+  
+  @media (max-width: 480px) {
+    .carousel-wrapper img {
+      object-fit: cover;
+      height: 150px; /* Make image slightly smaller on mobile */
+    }
+  
+    .carousel-container {
+      border-radius: 20px; /* Make the corners more rounded for mobile */
+    }
+  
+    /* Optionally, if you want to hide the navigation arrows entirely on mobile */
+    .carousel-button {
+      display: none;
+    }
+  }
+  
+
+
+
+  /* Add this to your global styles or within the component */
+.category-item:hover {
+  transform: scale(1.05); /* Slightly scale the category card */
+  box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1); /* Add shadow */
+}
+
+
+/* Global styles */
+.main {
+  background-image: url('/Background.jpg');
+  background-size: contain;
+  background-position: center;
+  background-repeat: no-repeat;
+  height: 100vh;
+}
+
+/* For smaller screens, make sure the background image covers the full screen */
+@media (max-width: 767px) {
+  .main {
+    background-size: cover;  /* Fills the screen on smaller screens */
+  }
+}
+
+/* For large screens, make sure the full image is visible */
+@media (min-width: 1024px) {
+  .main {
+    background-size: contain;  /* Full image visible on larger screens */
+  }
+}
+
+
+
