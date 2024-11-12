@@ -8,15 +8,24 @@ export default function BasicDetails({ data, handleData }) {
   const { data: brands } = useBrands();
   const { data: categories } = useCategories();
 
-  // State for featured product status
+  // State for featured product status and price range
   const [isFeatured, setIsFeatured] = useState(data?.isFeatured ?? "no");
+  const [priceStart, setPriceStart] = useState(data?.priceStart ?? "");
+  const [priceEnd, setPriceEnd] = useState(data?.priceEnd ?? "");
 
-  // Handle price change
-  const handlePriceChange = (value) => {
-    handleData("price", value);
+  // Handle start price change
+  const handleStartPriceChange = (value) => {
+    setPriceStart(value);
+    handleData("priceStart", value); // Update start price in the data object
   };
 
-  // Handle Featured Product change
+  // Handle end price change
+  const handleEndPriceChange = (value) => {
+    setPriceEnd(value);
+    handleData("priceEnd", value); // Update end price in the data object
+  };
+
+  // Handle featured product change
   const handleFeaturedChange = (e) => {
     const newFeaturedStatus = e.target.value;
     setIsFeatured(newFeaturedStatus);
@@ -110,16 +119,28 @@ export default function BasicDetails({ data, handleData }) {
         </select>
       </div>
 
-      {/* Price Field */}
+      {/* Price Range Fields */}
       <div className="flex flex-col gap-2">
-        <label className="text-gray-500 text-xs">Price</label>
-        <input
-          type="number"
-          value={data?.price ?? ""}
-          onChange={(e) => handlePriceChange(e.target.valueAsNumber)}
-          className="border px-4 py-2 rounded-lg w-full outline-none"
-          placeholder="Enter Price"
-        />
+        <label className="text-gray-500 text-xs">Price Range</label>
+        <div className="flex gap-2">
+          <input
+            type="number"
+            value={priceStart}
+            onChange={(e) => handleStartPriceChange(e.target.value)}
+            className="border px-4 py-2 rounded-lg w-full outline-none"
+            placeholder="Start Price"
+            min="0"
+          />
+          <span className="my-auto">-</span>
+          <input
+            type="number"
+            value={priceEnd}
+            onChange={(e) => handleEndPriceChange(e.target.value)}
+            className="border px-4 py-2 rounded-lg w-full outline-none"
+            placeholder="End Price"
+            min="0"
+          />
+        </div>
       </div>
 
       {/* Stock Availability (Yes/No) */}

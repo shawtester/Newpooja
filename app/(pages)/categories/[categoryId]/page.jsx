@@ -85,10 +85,15 @@ export default async function Page({ params }) {
               <div className="p-4 space-y-2">
                 <h2 className="text-lg font-semibold text-gray-800 line-clamp-1">{item?.title}</h2>
                 <p className="text-sm text-gray-600 line-clamp-2">{item?.shortDescription || "No description available"}</p>
-                <div className="flex justify-between items-center mt-4">
-                  <span className="text-lg font-bold text-green-600">₹{item?.price}</span>
-                  
-                </div>
+                <div className="flex justify-between items-center mt-4 bg-gray-100 p-3 rounded-lg">
+  <div className="flex items-center">
+    <span className="text-lg font-semibold text-gray-600">Price Range: </span>
+    <span className="ml-2 text-lg font-bold text-green-600">₹{item?.priceStart}</span>
+    <span className="mx-2 text-lg text-gray-500">-</span>
+    <span className="text-lg font-bold text-green-600">₹{item?.priceEnd}</span>
+  </div>
+</div>
+
               </div>
             </div>
           ))}

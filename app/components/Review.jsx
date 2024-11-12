@@ -1,7 +1,8 @@
 'use client';
 
-import { useState } from 'react';
-import { db, collection, setDoc, doc, Timestamp } from '@/lib/firebase';  // Ensure correct import here
+import { useState, useEffect } from 'react';
+import { db } from '@/lib/firebase';  // Import the db from firebase.js
+import { collection, setDoc, doc } from 'firebase/firestore';  // Import Firestore functions
 
 export default function AddReviewSection() {
   const [name, setName] = useState('');
@@ -24,27 +25,25 @@ export default function AddReviewSection() {
         email,
         rating,
         review,
-        timestamp: Timestamp.now(),  // Correct usage of Timestamp.now()
       };
 
-      // Generate a unique document ID (you can also use something like a random ID or a UUID)
-      const reviewRef = doc(collection(db, 'reviews'));
+      // Create a new document reference with a unique ID
+      const reviewRef = doc(collection(db, 'reviews'));  // Firestore collection 'reviews'
 
-      // Set the document in Firestore
+      // Set the document in Firestore with the review data
       await setDoc(reviewRef, reviewData);
 
-      // Show success message after submission
+      // On success, set the submission status and clear the form
       setIsSubmitted(true);
-
-      // Reset form values
       setName('');
       setEmail('');
       setRating(5);
       setReview('');
+
     } catch (error) {
-      console.error('Error adding review: ', error);
+      console.error('Error adding review: ', error);  // Handle errors
     } finally {
-      setIsLoading(false); // Set loading to false after submission
+      setIsLoading(false);  // Hide loading state after submission
     }
   };
 
@@ -54,6 +53,7 @@ export default function AddReviewSection() {
         <h2 className="text-3xl sm:text-4xl font-semibold text-gray-800 mb-6">Add Your Review</h2>
         <p className="text-lg text-gray-600 mb-8">We value your feedback! Please share your experience with us.</p>
 
+        {/* Success message after successful submission */}
         {isSubmitted && (
           <div className="text-green-600 mb-6">
             <p className="font-semibold">Thank you for your review! It has been submitted successfully.</p>

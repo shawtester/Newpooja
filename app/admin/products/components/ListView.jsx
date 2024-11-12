@@ -8,6 +8,14 @@ import { useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
 import toast from "react-hot-toast";
 
+// Mocked category data (replace this with actual data fetching logic if needed)
+const categoryMap = {
+  "fJZRqz9iSXVQ6YJ3x12w": "Skin Treatment",
+  "ckhPZiyZe5v2f8DUKKKR":"Hair Treatment",
+  "OxMtZurqzi9zyGKrWGza":"Hair Colours",
+ 
+};
+
 export default function ListView() {
   const [pageLimit, setPageLimit] = useState(10);
   const [lastSnapDocList, setLastSnapDocList] = useState([]);
@@ -62,8 +70,7 @@ export default function ListView() {
             <th className="font-semibold border-y bg-white px-3 py-2 text-left">Title</th>
             <th className="font-semibold border-y bg-white px-3 py-2 text-left">Price</th>
             <th className="font-semibold border-y bg-white px-3 py-2 text-left">Stock</th>
-            <th className="font-semibold border-y bg-white px-3 py-2 text-left">Orders</th>
-            <th className="font-semibold border-y bg-white px-3 py-2 text-left">Status</th>
+            <th className="font-semibold border-y bg-white px-3 py-2 text-left">Category</th>
             <th className="font-semibold border-y bg-white px-3 py-2 border-r rounded-r-lg text-center">Actions</th>
           </tr>
         </thead>
@@ -136,8 +143,8 @@ function Row({ item, index }) {
     router.push(`/admin/products/form?id=${item?.id}`);
   };
 
-  // Access the first image from the imageList array
-  const firstImage = item?.imageList && item?.imageList[0]; // Display the first image
+  const firstImage = item?.imageList && item?.imageList[0];
+  const categoryName = categoryMap[item?.categoryId] || "Unknown Category";
 
   return (
     <tr>
@@ -149,43 +156,28 @@ function Row({ item, index }) {
           {firstImage ? (
             <img className="h-10 w-10 object-cover" src={firstImage} alt="Product" />
           ) : (
-            <span>No Image</span> // Fallback if no image is found
+            <span>No Image</span>
           )}
         </div>
       </td>
       <td className="border-y bg-white px-3 py-2 whitespace-nowrap">
-        {item?.title}{" "}
-        {item?.isFeatured === true && (
-          <span className="ml-2 bg-gradient-to-tr from-blue-500 to-indigo-400 text-white text-[10px] rounded-full px-3 py-1">
-            Featured
-          </span>
+        {item?.title}
+      </td>
+      <td className="border-y bg-white px-3 py-2">
+        <div>
+          <span className="font-bold text-green-600">₹{item?.priceStart}</span>
+          <span className="mx-2">-</span>
+          <span className="font-bold text-green-600">₹{item?.priceEnd}</span>
+        </div>
+      </td>
+      <td className="border-y bg-white px-3 py-2">
+        {item?.isInStock ? (
+          <span className="text-green-500 font-semibold">In Stock</span>
+        ) : (
+          <span className="text-red-500 font-semibold">Out of Stock</span>
         )}
       </td>
-      <td className="border-y bg-white px-3 py-2 whitespace-nowrap">
-        {/* Base Price (strikethrough and red) and Selling Price (bold) */}
-        {item?.weightPrices?.map((price, index) => (
-          <div key={index}>
-            <span className="text-red-500 text-xs line-through">₹ {price.basePrice}</span> 
-            <span className="font-bold ml-2">₹ {price.sellingPrice}</span>
-          </div>
-        ))}
-      </td>
-      <td className="border-y bg-white px-3 py-2">{item?.stock}</td>
-      <td className="border-y bg-white px-3 py-2">{item?.orders ?? 0}</td>
-      <td className="border-y bg-white px-3 py-2">
-        <div className="flex">
-          {item?.stock - (item?.orders ?? 0) > 0 && (
-            <div className="px-2 py-1 text-xs text-green-500 bg-green-100 font-bold rounded-md">
-              Available
-            </div>
-          )}
-          {item?.stock - (item?.orders ?? 0) <= 0 && (
-            <div className="px-2 py-1 text-xs text-red-500 bg-red-100 rounded-md">
-              Out Of Stock
-            </div>
-          )}
-        </div>
-      </td>
+      <td className="border-y bg-white px-3 py-2">{categoryName}</td>
       <td className="border-y bg-white px-3 py-2 border-r rounded-r-lg">
         <div className="flex gap-2 items-center">
           <Button onClick={handleUpdate} isDisabled={isDeleting} isIconOnly size="sm">
