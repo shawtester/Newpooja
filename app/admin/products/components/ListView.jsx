@@ -13,6 +13,9 @@ const categoryMap = {
   "fJZRqz9iSXVQ6YJ3x12w": "Skin Treatment",
   "ckhPZiyZe5v2f8DUKKKR":"Hair Treatment",
   "OxMtZurqzi9zyGKrWGza":"Hair Colours",
+  "prDsTOKVJVUOPw3ImM7t":"Makeup",
+  "cCqEOI1tDhk7HdMKqncv":"Nails Treatment",
+
  
 };
 

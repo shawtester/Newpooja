@@ -134,6 +134,18 @@
     background-size: contain;  /* Full image visible on larger screens */
   }
 }
+@media (min-width: 1200px) {
+  .carousel-wrapper {
+    height: 80vh;
+  }
+}
+
+
+
+
+
+
+
 
 
 

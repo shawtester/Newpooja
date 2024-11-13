@@ -1,75 +1,94 @@
-"use client"; // Mark this file as a client component
+'use client';
 
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect } from 'react';
+import Image from 'next/image';
+import './Carousel.css';
 
-const CustomCarousel = () => {
+const Carousel = () => {
   const [currentIndex, setCurrentIndex] = useState(0);
 
-  // Array of image URLs
+  // Image URLs in the public folder
   const images = [
-    "https://thebeautybae.com/uploads/images/img__17__1727956719.png",
-    "https://thebeautybae.com/uploads/images/img__4__1658320812.jpg",
+    '/img1.png',
+    '/img2.png',
+    '/img3.png',
+    '/img4.png',
+    '/img5.png',
+    '/img6.png',
   ];
 
-  // Go to the next slide
+  // Function to go to the next slide
   const nextSlide = () => {
-    setCurrentIndex((prevIndex) => (prevIndex + 1) % images.length);
+    setCurrentIndex((prevIndex) => (prevIndex === images.length - 1 ? 0 : prevIndex + 1));
   };
 
-  // Go to the previous slide
+  // Function to go to the previous slide
   const prevSlide = () => {
-    setCurrentIndex((prevIndex) => (prevIndex - 1 + images.length) % images.length);
+    setCurrentIndex((prevIndex) => (prevIndex === 0 ? images.length - 1 : prevIndex - 1));
   };
 
-  // Go to a specific slide based on clicked dot
-  const goToSlide = (index) => {
-    setCurrentIndex(index);
-  };
-
-  // Automatic slide transition using useEffect
+  // Autoplay functionality using useEffect
   useEffect(() => {
-    const interval = setInterval(nextSlide, 3000); // Change slide every 3 seconds
-    return () => clearInterval(interval); // Cleanup on component unmount
+    const autoplayInterval = setInterval(() => {
+      nextSlide();
+    }, 3000); // Change slide every 3 seconds (3000ms)
+
+    // Cleanup the interval when the component is unmounted
+    return () => clearInterval(autoplayInterval);
   }, []);
 
   return (
-    <div className="carousel-container relative max-w-full overflow-hidden rounded-xl p-4 shadow-lg">
-      {/* Image Wrapper */}
-      <div className="carousel-wrapper relative w-full">
-        <img
-          src={images[currentIndex]}
-          alt={`Slide ${currentIndex + 1}`}
-          className="w-full h-full object-cover rounded-xl transition-transform duration-500 ease-in-out"
-        />
-
-        {/* Left and Right Navigation Buttons */}
-        <button
-          onClick={prevSlide}
-          className="carousel-button absolute top-1/2 left-4 transform -translate-y-1/2 bg-black bg-opacity-50 text-white p-3 text-2xl cursor-pointer rounded-full z-10 hidden sm:block"
-        >
-          &#10094;
-        </button>
-
-        <button
-          onClick={nextSlide}
-          className="carousel-button absolute top-1/2 right-4 transform -translate-y-1/2 bg-black bg-opacity-50 text-white p-3 text-2xl cursor-pointer rounded-full z-10 hidden sm:block"
-        >
-          &#10095;
-        </button>
+    <div className="relative w-full max-w-screen-lg lg:max-w-7xl mx-auto overflow-hidden">
+      {/* Carousel wrapper */}
+      <div
+        className="flex transition-transform duration-700"
+        style={{ transform: `translateX(-${currentIndex * 100}%)` }}
+      >
+        {/* Each slide */}
+        {images.map((image, index) => (
+          <div key={index} className="w-full flex-shrink-0">
+            {/* Padding added to the container */}
+            <div className="relative w-full h-full overflow-hidden rounded-lg p-4">
+              <Image
+                src={image}
+                alt={`Slide ${index + 1}`}
+                width={1920} // Adjust width as needed
+                height={1080} // Adjust height as needed
+                className="object-cover w-full h-full" // Ensures the image fills the container
+              />
+            </div>
+          </div>
+        ))}
       </div>
 
-      {/* Dots Navigation */}
-      <div className="carousel-dots flex justify-center mt-4">
+      {/* Left arrow */}
+      <button
+        onClick={prevSlide}
+        className="absolute left-5 top-1/2 transform -translate-y-1/2 bg-black bg-opacity-50 text-white p-3 rounded-full"
+      >
+        &#10094;
+      </button>
+
+      {/* Right arrow */}
+      <button
+        onClick={nextSlide}
+        className="absolute right-5 top-1/2 transform -translate-y-1/2 bg-black bg-opacity-50 text-white p-3 rounded-full"
+      >
+        &#10095;
+      </button>
+
+      {/* Dot navigation */}
+      <div className="absolute bottom-5 left-1/2 transform -translate-x-1/2 flex space-x-3">
         {images.map((_, index) => (
-          <span
+          <button
             key={index}
-            onClick={() => goToSlide(index)}
-            className={`dot w-2.5 h-2.5 mx-2 rounded-full cursor-pointer transition-all duration-300 ease-in-out ${currentIndex === index ? "bg-black" : "bg-gray-400"}`}
-          ></span>
+            onClick={() => setCurrentIndex(index)}
+            className={`w-3 h-3 rounded-full ${currentIndex === index ? 'bg-white' : 'bg-gray-400'}`}
+          ></button>
         ))}
       </div>
     </div>
   );
 };
 
-export default CustomCarousel;
+export default Carousel;

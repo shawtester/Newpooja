@@ -56,7 +56,7 @@ export default function Footer() {
                 <FaFacebookF size={24} />
               </a>
               <a
-                href="https://instagram.com"
+                href="https://www.instagram.com/a_face_of_change_f.o.c._/"
                 target="_blank"
                 rel="noopener noreferrer"
                 className="text-gray-400 hover:text-pink-500 transition-colors duration-300"

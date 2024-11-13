@@ -38,29 +38,26 @@ export default async function Page({ params }) {
     <>
       <Header />
       <main
-        className="w-full h-screen flex flex-col items-center justify-center"
+        className="w-full flex flex-col items-center justify-start"
         style={{
           backgroundImage: "url('/Background.jpg')",
           backgroundSize: "cover",
           backgroundPosition: "top center",
           backgroundRepeat: "no-repeat",
-          height: "100vh",
-          backgroundAttachment: "fixed", 
+          minHeight: "100vh", // Allows the container to expand with content
+          backgroundAttachment: "fixed",
         }}
       >
         {/* Category Title */}
         <h1
-  className="text-4xl font-semibold text-black mt-20"
-  style={{ textShadow: '2px 2px 4px rgba(0, 0, 0, 0.3)' }}
->
-  {category.name}
-</h1>
-
-
-
+          className="text-4xl font-semibold text-black mt-16 md:mt-20 lg:mt-24 px-4 text-center"
+          style={{ textShadow: '2px 2px 4px rgba(0, 0, 0, 0.3)' }}
+        >
+          {category.name}
+        </h1>
 
         {/* Product Grid */}
-        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6 p-6">
+        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6 p-6 max-w-screen-lg w-full">
           {convertedProducts.map((item) => (
             <div
               key={item.id}
@@ -86,14 +83,13 @@ export default async function Page({ params }) {
                 <h2 className="text-lg font-semibold text-gray-800 line-clamp-1">{item?.title}</h2>
                 <p className="text-sm text-gray-600 line-clamp-2">{item?.shortDescription || "No description available"}</p>
                 <div className="flex justify-between items-center mt-4 bg-gray-100 p-3 rounded-lg">
-  <div className="flex items-center">
-    <span className="text-lg font-semibold text-gray-600">Price Range: </span>
-    <span className="ml-2 text-lg font-bold text-green-600">₹{item?.priceStart}</span>
-    <span className="mx-2 text-lg text-gray-500">-</span>
-    <span className="text-lg font-bold text-green-600">₹{item?.priceEnd}</span>
-  </div>
-</div>
-
+                  <div className="flex items-center">
+                    <span className="text-lg font-semibold text-gray-600">Price Range: </span>
+                    <span className="ml-2 text-lg font-bold text-green-600">₹{item?.priceStart}</span>
+                    <span className="mx-2 text-lg text-gray-500">-</span>
+                    <span className="text-lg font-bold text-green-600">₹{item?.priceEnd}</span>
+                  </div>
+                </div>
               </div>
             </div>
           ))}
