@@ -1,7 +1,9 @@
+import React from "react";
 import localFont from "next/font/local";
 import "./globals.css";
 import { NextUIProvider } from "@nextui-org/react";
 import { Toaster } from "react-hot-toast";
+import WhatsAppIcon from "./components/WhatsappIcon"; 
 
 const geistSans = localFont({
   src: "./fonts/GeistVF.woff",
@@ -22,15 +24,12 @@ export const metadata = {
 export default function RootLayout({ children }) {
   return (
     <html lang="en">
-      <body
-        className={`${geistSans.variable} ${geistMono.variable} antialiased`}
-      >
-
-<NextUIProvider>
-  <Toaster/>
-{children}
-    </NextUIProvider>
-   
+      <body className={`${geistSans.variable} ${geistMono.variable} antialiased`}>
+        <NextUIProvider>
+          <Toaster />
+          {children}
+          <WhatsAppIcon /> 
+        </NextUIProvider>
       </body>
     </html>
   );
