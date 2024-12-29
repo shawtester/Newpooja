@@ -15,14 +15,9 @@ export default function AlternatingLayout() {
   const observeSection = (setImageVisible, setTextVisible) => (entries, observer) => {
     entries.forEach(entry => {
       if (entry.isIntersecting) {
-        // Section is in view
-        setImageVisible(true); // Fade in image
+        setImageVisible(true);
         observer.unobserve(entry.target); // Stop observing once it's in view
-        setTimeout(() => setTextVisible(true), 1000); // Show text after image with delay
-      } else {
-        // Section is not in view, reset opacity
-        setImageVisible(false);
-        setTextVisible(false);
+        setTimeout(() => setTextVisible(true), 1000); // Show text after a delay
       }
     });
   };
@@ -42,85 +37,71 @@ export default function AlternatingLayout() {
   }, []);
 
   return (
-    <div className="py-10">
-      {/* Why The Beauty FOC Header Section */}
-      <section className="bg-pink-400 text-white py-8 h-[100px] w-full mx-auto">
-        <div className="text-center">
-          <h1 className="text-4xl sm:text-5xl font-bold">Why The Beauty FOC</h1>
+    <div className="py-10 bg-gray-100">
+      {/* Header Section */}
+      <section className="bg-pink-400 text-white py-16">
+        <div className="container mx-auto px-4">
+          <h1 className="text-4xl sm:text-5xl font-bold text-center">
+            Why The Beauty AFOC
+          </h1>
         </div>
       </section>
 
       {/* First Section: Image on Left, Text on Right */}
       <section id="firstSection" className="flex flex-col md:flex-row items-center md:space-x-12 space-y-8 md:space-y-0 px-6 mt-16">
         <div className="flex-1">
-          {/* Lazy Load Image with Intersection Observer */}
           <img
             src="https://thebeautybae.com/images/why3.jpg"
-            alt="Image 1"
+            alt="Genuine & Sealed Products"
             width={600}
             height={400}
-            className={`w-full h-auto rounded-lg shadow-lg transition-opacity duration-2000 ${isFirstImageVisible ? 'opacity-100' : 'opacity-0'}`}
+            className={`w-full h-auto rounded-lg shadow-lg transition-opacity duration-1000 ${isFirstImageVisible ? 'opacity-100' : 'opacity-0'}`}
           />
         </div>
         <div className="flex-1 text-center md:text-left relative">
-          {/* Background image behind paragraph */}
-          <div
-            className={`absolute inset-0 bg-cover bg-center opacity-30 rounded-lg`}
-            style={{ backgroundImage: `url('/Background.jpg')` }} // Replace with the desired image URL
-          ></div>
           <div className="relative z-10">
-            {/* Add Patta Image above the heading */}
             <div className="mb-4">
               <img
-                src="/patta.png"  // Path to your Patta image
-                alt="Patta Image"
-                className="w-24 h-24 mx-auto" // Adjust size and margin as needed
+                src="/patta.png"
+                alt="Patta Icon"
+                className="w-24 h-24 mx-auto"
               />
             </div>
-
-            {/* Show description after image is loaded */}
-            <h2 className={`text-3xl font-semibold mb-4 transition-opacity duration-2000 ${isFirstTextVisible ? 'opacity-100' : 'opacity-0'}`}>
+            <h2 className={`text-3xl font-semibold mb-4 transition-opacity duration-1000 ${isFirstTextVisible ? 'opacity-100' : 'opacity-0'}`}>
               Genuine & Sealed Products
             </h2>
-            <p className={`text-lg text-gray-700 leading-relaxed mb-6 md:text-left text-center transition-opacity duration-2000 ${isFirstTextVisible ? 'opacity-100' : 'opacity-0'}`}>
-              At The Beauty FOC, we are committed to using only authentic, sealed products to ensure the highest standards of quality and safety. Your skin deserves nothing less than the best, which is why we strive for 100% satisfaction in every treatment. We’ve partnered with top-tier brands and industry leaders to bring you the finest products, ensuring that every experience is tailored to deliver exceptional results.
+            <p className={`text-lg text-gray-700 leading-relaxed mb-6 md:text-left text-center transition-opacity duration-1000 ${isFirstTextVisible ? 'opacity-100' : 'opacity-0'}`}>
+              At The Beauty FOC, we are committed to using only authentic, sealed products to ensure the highest standards of quality and safety.
             </p>
           </div>
         </div>
       </section>
 
-      {/* Second Section: Image on Left, Text on Right */}
+      {/* Second Section: Image on Right, Text on Left */}
       <section id="secondSection" className="flex flex-col md:flex-row-reverse items-center md:space-x-12 space-y-8 md:space-y-0 px-6 mt-16">
         <div className="flex-1">
           <img
             src="https://thebeautybae.com/images/why2.jpg"
-            alt="Image 2"
+            alt="Trained and Verified Beauticians"
             width={600}
             height={400}
-            className={`w-full h-auto rounded-lg shadow-lg transition-opacity duration-2000 ${isSecondImageVisible ? 'opacity-100' : 'opacity-0'}`}
+            className={`w-full h-auto rounded-lg shadow-lg transition-opacity duration-1000 ${isSecondImageVisible ? 'opacity-100' : 'opacity-0'}`}
           />
         </div>
         <div className="flex-1 text-center md:text-left relative">
-          {/* Background image behind paragraph */}
-          <div
-            className={`absolute inset-0 bg-cover bg-center opacity-30 rounded-lg`}
-            style={{ backgroundImage: `url('/Background.jpg')` }} // Replace with the desired image URL
-          ></div>
           <div className="relative z-10">
-            {/* Add Patta Image above the heading */}
             <div className="mb-4">
               <img
-                src="/patta.png"  // Path to your Patta image
-                alt="Patta Image"
-                className="w-24 h-24 mx-auto" // Adjust size and margin as needed
+                src="/patta.png"
+                alt="Patta Icon"
+                className="w-24 h-24 mx-auto"
               />
             </div>
-
-            <h2 className={`text-3xl font-semibold mb-4 transition-opacity duration-2000 ${isSecondTextVisible ? 'opacity-100' : 'opacity-0'}`}>
+            <h2 className={`text-3xl font-semibold mb-4 transition-opacity duration-1000 ${isSecondTextVisible ? 'opacity-100' : 'opacity-0'}`}>
               Trained and Verified Beauticians
             </h2>
-            <p className={`text-lg text-gray-700 leading-relaxed mb-6 md:text-left text-center transition-opacity duration-2000 ${isSecondTextVisible ? 'opacity-100' : 'opacity-0'}`}>
-              At The Beauty FOC, we deeply care about our clients and their well-being, which is why we never compromise on any aspect of our service. Our beauticians are thoroughly trained and certified by top-tier institutes, ensuring they possess the expertise to deliver exceptional results. Additionally, we conduct comprehensive background checks on all our beauticians, so you can feel confident that you’re in safe, capable hands. Your satisfaction and trust are our top priorities 😊.
+            <p className={`text-lg text-gray-700 leading-relaxed mb-6 md:text-left text-center transition-opacity duration-1000 ${isSecondTextVisible ? 'opacity-100' : 'opacity-0'}`}>
+              Our beauticians are thoroughly trained and certified, ensuring they deliver exceptional results with care and expertise.
             </p>
           </div>
         </div>
@@ -131,33 +112,26 @@ export default function AlternatingLayout() {
         <div className="flex-1">
           <img
             src="https://thebeautybae.com/images/why1.jpg"
-            alt="Image 3"
+            alt="Pocket Friendly Pricing"
             width={600}
             height={400}
-            className={`w-full h-auto rounded-lg shadow-lg transition-opacity duration-2000 ${isThirdImageVisible ? 'opacity-100' : 'opacity-0'}`}
+            className={`w-full h-auto rounded-lg shadow-lg transition-opacity duration-1000 ${isThirdImageVisible ? 'opacity-100' : 'opacity-0'}`}
           />
         </div>
         <div className="flex-1 text-center md:text-left relative">
-          {/* Background image behind paragraph */}
-          <div
-            className={`absolute inset-0 bg-cover bg-center opacity-30 rounded-lg`}
-            style={{ backgroundImage: `url('/Background.jpg')` }} // Replace with the desired image URL
-          ></div>
           <div className="relative z-10">
-            {/* Add Patta Image above the heading */}
             <div className="mb-4">
               <img
-                src="/patta.png"  // Path to your Patta image
-                alt="Patta Image"
-                className="w-24 h-24 mx-auto" // Adjust size and margin as needed
+                src="/patta.png"
+                alt="Patta Icon"
+                className="w-24 h-24 mx-auto"
               />
             </div>
-
-            <h2 className={`text-3xl font-semibold mb-4 transition-opacity duration-2000 ${isThirdTextVisible ? 'opacity-100' : 'opacity-0'}`}>
-              Pocket Friendly and Satisfactory in Pricing
+            <h2 className={`text-3xl font-semibold mb-4 transition-opacity duration-1000 ${isThirdTextVisible ? 'opacity-100' : 'opacity-0'}`}>
+              Pocket-Friendly Pricing
             </h2>
-            <p className={`text-lg text-gray-700 leading-relaxed mb-6 md:text-left text-center transition-opacity duration-2000 ${isThirdTextVisible ? 'opacity-100' : 'opacity-0'}`}>
-              Whether you visit our salon or opt for our convenient home service, we ensure that our pricing reflects the exceptional quality we deliver. We’ve carefully structured our prices based on the latest industry trends, offering you the best value without compromising on service. At The Beauty FOC, we pride ourselves on providing premium experiences at prices that are more competitive than any other salon.
+            <p className={`text-lg text-gray-700 leading-relaxed mb-6 md:text-left text-center transition-opacity duration-1000 ${isThirdTextVisible ? 'opacity-100' : 'opacity-0'}`}>
+              Experience premium beauty services at competitive prices with no compromise on quality.
             </p>
           </div>
         </div>
