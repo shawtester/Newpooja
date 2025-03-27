@@ -11,7 +11,7 @@ export default function AlternatingLayout() {
   const [isThirdImageVisible, setThirdImageVisible] = useState(false);
   const [isThirdTextVisible, setThirdTextVisible] = useState(false);
 
-  // Intersection observer callback for each section
+  
   const observeSection = (setImageVisible, setTextVisible) => (entries, observer) => {
     entries.forEach(entry => {
       if (entry.isIntersecting) {
@@ -38,11 +38,11 @@ export default function AlternatingLayout() {
 
   return (
     <div className="py-10 bg-gray-100">
-      {/* Header Section */}
+      
       <section className="bg-pink-400 text-white py-16">
         <div className="container mx-auto px-4">
           <h1 className="text-4xl sm:text-5xl font-bold text-center">
-            Why The Beauty AFOC
+            Why AFOC
           </h1>
         </div>
       </section>
